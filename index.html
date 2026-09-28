@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Notes Tips — 31 Clips</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --void: #06080C;
+    --carbon: #0D1117;
+    --carbon-light: #161B22;
+    --cyan: #00E5FF;
+    --cyan-dim: #00E5FF33;
+    --text: #E6EDF3;
+    --text-muted: #8B949E;
+    --border: #21262D;
+    --accent-purple: #A855F7;
+    --accent-pink: #EC4899;
+    --accent-green: #22C55E;
+    --accent-orange: #F97316;
+    --accent-yellow: #EAB308;
+    --accent-blue: #3B82F6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 80px 24px 60px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, var(--cyan-dim) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--carbon-light);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: var(--cyan);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+  }
+  .hero-badge span {
+    width: 6px; height: 6px;
+    background: var(--cyan);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.5); }
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--accent-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+  .hero-stat .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* CATEGORY NAV */
+  .category-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(6,8,12,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cat-btn {
+    background: var(--carbon-light);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .cat-btn:hover, .cat-btn.active {
+    background: var(--cyan-dim);
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+
+  /* MAIN */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 48px 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text);
+  }
+  .section-title .icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--carbon);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+  }
+  .card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px var(--cyan-dim), 0 20px 40px rgba(0,0,0,0.5);
+  }
+  .card-gif-wrap {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: var(--carbon-light);
+    overflow: hidden;
+  }
+  .card-gif-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+  .card:hover .card-gif-wrap img {
+    transform: scale(1.05);
+  }
+  .card-number {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--cyan);
+  }
+  .card-time {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #fff;
+  }
+  .card-body {
+    padding: 16px 20px 20px;
+  }
+  .card-category {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Category colors */
+  .cat-essentials .card-category { color: var(--cyan); }
+  .cat-apple-watch .card-category { color: var(--accent-orange); }
+  .cat-ipad .card-category { color: var(--accent-purple); }
+  .cat-organization .card-category { color: var(--accent-green); }
+  .cat-advanced .card-category { color: var(--accent-pink); }
+  .cat-formatting .card-category { color: var(--accent-yellow); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+  footer a { color: var(--cyan); text-decoration: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero { padding: 60px 16px 40px; }
+    .hero h1 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><span></span> Apple Notes Tips — Complete Guide</div>
+  <h1>31 Shortcuts You Didn't Know</h1>
+  <p>Watch every trick in under 10 minutes. Each clip is a focused tip for getting more out of Apple Notes.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">31</div><div class="label">Clips</div></div>
+    <div class="hero-stat"><div class="num">9:28</div><div class="label">Total Length</div></div>
+    <div class="hero-stat"><div class="num">360°</div><div class="label">Features Covered</div></div>
+    <div class="hero-stat"><div class="num">6</div><div class="label">Categories</div></div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="category-nav">
+  <a href="#essentials" class="cat-btn active">Essentials</a>
+  <a href="#watch" class="cat-btn">Apple Watch</a>
+  <a href="#ipad" class="cat-btn">iPad Pro</a>
+  <a href="#org" class="cat-btn">Organization</a>
+  <a href="#advanced" class="cat-btn">Advanced</a>
+  <a href="#format" class="cat-btn">Formatting</a>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- ESSENTIALS -->
+  <section id="essentials">
+    <h2 class="section-title"><span class="icon" style="background:#00E5FF22;color:var(--cyan)">⚡</span> Essentials</h2>
+    <div class="grid cat-essentials">
+
+      <a href="https://drive.google.com/file/d/1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b/view" target="_blank" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Mini Player" loading="lazy">
+          <div class="card-number">#01</div>
+          <div class="card-time">0:00 – 0:42</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Essential</div>
+          <div class="card-title">Mini Player YT Videos</div>
+          <div class="card-desc">Save YouTube videos to Notes and watch them in a picture-in-picture mini player while doing other things.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Save Website Preview" loading="lazy">
+          <div class="card-number">#02</div>
+          <div class="card-time">0:42 – 1:00</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Essential</div>
+          <div class="card-title">Save Websites with Preview</div>
+          <div class="card-desc">Add web pages as rich card previews instead of plain links — see title, image, and snippet at a glance.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Save Quote" loading="lazy">
+          <div class="card-number">#03</div>
+          <div class="card-time">1:00 – 1:29</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Essential</div>
+          <div class="card-title">Save Websites with Quote</div>
+          <div class="card-desc">Highlight specific text on a website to save the link and the quote together — perfect for research.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Attachments" loading="lazy">
+          <div class="card-number">#04</div>
+          <div class="card-time">1:29 – 2:44</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Essential</div>
+          <div class="card-title">Surprising Things You Can Attach</div>
+          <div class="card-desc">Attach emails, Finder folders, videos, audio recordings (with transcripts), maps, and Apple Music songs directly into notes.</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- APPLE WATCH -->
+  <section id="watch">
+    <h2 class="section-title"><span class="icon" style="background:#F9731622;color:var(--accent-orange)">⌚</span> Apple Watch & Siri</h2>
+    <div class="grid cat-apple-watch">
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Watch Notes" loading="lazy">
+          <div class="card-number">#05</div>
+          <div class="card-time">2:44 – 3:07</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Apple Watch</div>
+          <div class="card-title">View Notes on Apple Watch</div>
+          <div class="card-desc">Access your Notes directly from your wrist — read, search, and browse without pulling out your phone.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Grocery" loading="lazy">
+          <div class="card-number">#06</div>
+          <div class="card-time">3:07 – 3:17</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Apple Watch</div>
+          <div class="card-title">Grocery Shopping with Apple Watch</div>
+          <div class="card-desc">Use checklists for shopping directly from the watch — tap to add items while you're at the store.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Create Note Watch" loading="lazy">
+          <div class="card-number">#07</div>
+          <div class="card-time">3:17 – 3:31</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Apple Watch</div>
+          <div class="card-title">Create Notes on Apple Watch</div>
+          <div class="card-desc">Jot down quick ideas using the watch keyboard or voice dictation — hands full? Just speak it.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Complications" loading="lazy">
+          <div class="card-number">#08</div>
+          <div class="card-time">3:31 – 3:44</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Apple Watch</div>
+          <div class="card-title">Brand-New Notes Complications</div>
+          <div class="card-desc">Use watch face complications for instant access — add Notes widgets to your watch face for one-tap entry.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Siri Notes" loading="lazy">
+          <div class="card-number">#09</div>
+          <div class="card-time">3:44 – 3:56</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Apple Watch</div>
+          <div class="card-title">Create Notes with Siri</div>
+          <div class="card-desc">Use voice commands to create new notes hands-free — just say "Hey Siri, create a note about..."</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- IPAD -->
+  <section id="ipad">
+    <h2 class="section-title"><span class="icon" style="background:#A855F722;color:var(--accent-purple)">🎨</span> iPad & Productivity Tools</h2>
+    <div class="grid cat-ipad">
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="PDF Tricks" loading="lazy">
+          <div class="card-number">#10</div>
+          <div class="card-time">3:56 – 4:15</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">iPad Pro</div>
+          <div class="card-title">Powerful PDF Tricks in Notes</div>
+          <div class="card-desc">View and manage PDFs inline — including thumbnails, annotations, and seamless page navigation inside notes.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Handwriting" loading="lazy">
+          <div class="card-number">#11</div>
+          <div class="card-time">4:15 – 4:37</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">iPad Pro</div>
+          <div class="card-title">Beautiful Handwriting on iPad</div>
+          <div class="card-desc">Improve handwriting aesthetics with grid lines and the "Improve Handwriting" tool that converts scribbles to clean text.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Math" loading="lazy">
+          <div class="card-number">#12</div>
+          <div class="card-time">4:37 – 4:56</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">iPad Pro</div>
+          <div class="card-title">Cheat with Math Notes</div>
+          <div class="card-desc">Solve equations and perform currency conversions automatically — write it by hand, get the answer instantly.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Notepad" loading="lazy">
+          <div class="card-number">#13</div>
+          <div class="card-time">4:56 – 5:06</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">iPad Pro</div>
+          <div class="card-title">Always-Ready Notepad</div>
+          <div class="card-desc">Tap your locked iPad screen with an Apple Pencil to instantly start a note — no unlock needed, write from anywhere.</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ORGANIZATION -->
+  <section id="org">
+    <h2 class="section-title"><span class="icon" style="background:#22C55E22;color:var(--accent-green)">📁</span> Organization & Workflow</h2>
+    <div class="grid cat-organization">
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Gallery" loading="lazy">
+          <div class="card-number">#14</div>
+          <div class="card-time">5:06 – 5:19</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Organization</div>
+          <div class="card-title">View Notes in Gallery</div>
+          <div class="card-desc">Switch from list view to gallery view for larger previews — perfect for visual reference and quick scanning.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Control Centre" loading="lazy">
+          <div class="card-number">#15</div>
+          <div class="card-time">5:19 – 5:30</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Organization</div>
+          <div class="card-title">Quick Note from Control Centre</div>
+          <div class="card-desc">Launch a new or quick note directly from the Control Centre — one tap from any screen, even paused videos.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Find" loading="lazy">
+          <div class="card-number">#16</div>
+          <div class="card-time">5:30 – 5:37</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Organization</div>
+          <div class="card-title">Find in Note</div>
+          <div class="card-desc">Search specifically within the current note using Spotlight-like search — jump to keywords instantly.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Headings" loading="lazy">
+          <div class="card-number">#17</div>
+          <div class="card-time">5:37 – 5:43</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Organization</div>
+          <div class="card-title">Use Headings</div>
+          <div class="card-desc">Use headings to structure and collapse sections of text — great for long-form notes and meeting agendas.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Subfolders" loading="lazy">
+          <div class="card-number">#18</div>
+          <div class="card-time">5:43 – 5:50</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Organization</div>
+          <div class="card-title">Organize with Subfolders</div>
+          <div class="card-desc">Nest folders inside folders for deeper organization — hierarchy for projects, topics, and categories.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Pin" loading="lazy">
+          <div class="card-number">#19</div>
+          <div class="card-time">5:50 – 5:56</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Organization</div>
+          <div class="card-title">Pin Notes</div>
+          <div class="card-desc">Keep important notes pinned at the top of your list — they stay visible even when sorted by date.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Lock" loading="lazy">
+          <div class="card-number">#20</div>
+          <div class="card-time">5:56 – 6:08</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Organization</div>
+          <div class="card-title">Lock Cheeky Notes</div>
+          <div class="card-desc">Secure private notes with Face ID, Touch ID, or a password — hide personal stuff from prying eyes.</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ADVANCED -->
+  <section id="advanced">
+    <h2 class="section-title"><span class="icon" style="background:#EC489922;color:var(--accent-pink)">🧠</span> Advanced Features & Intelligence</h2>
+    <div class="grid cat-advanced">
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Record Calls" loading="lazy">
+          <div class="card-number">#21</div>
+          <div class="card-time">6:08 – 6:43</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Advanced</div>
+          <div class="card-title">Record Calls and Take Notes</div>
+          <div class="card-desc">Record phone calls and get automatic transcripts — powerful for meetings, interviews, and important conversations.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Apple Intelligence" loading="lazy">
+          <div class="card-number">#22</div>
+          <div class="card-time">6:43 – 7:12</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Advanced</div>
+          <div class="card-title">Use Apple Intelligence in Notes</div>
+          <div class="card-desc">Use writing tools to rewrite, summarize, or generate text — AI-powered editing right inside Notes.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Generate Images" loading="lazy">
+          <div class="card-number">#23</div>
+          <div class="card-time">7:12 – 7:36</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Advanced</div>
+          <div class="card-title">Generate Images in Notes</div>
+          <div class="card-desc">Use the Image Wand on iPad to turn sketches into AI-generated images — draw it, then watch it come alive.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Markdown" loading="lazy">
+          <div class="card-number">#24</div>
+          <div class="card-time">7:36 – 7:54</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Advanced</div>
+          <div class="card-title">Markdown Import & Export</div>
+          <div class="card-desc">Manage files via Markdown for better portability — import .md files and export notes as clean Markdown.</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FORMATTING -->
+  <section id="format">
+    <h2 class="section-title"><span class="icon" style="background:#EAB30822;color:var(--accent-yellow)">✨</span> Formatting & Collaboration</h2>
+    <div class="grid cat-formatting">
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Font Color" loading="lazy">
+          <div class="card-number">#25</div>
+          <div class="card-time">7:54 – 8:33</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Formatting</div>
+          <div class="card-title">Change Text Font, Color & Size</div>
+          <div class="card-desc">Customize your notes with various fonts, colors, and sizes on Mac — make your notes visually distinct and organized.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Link Notes" loading="lazy">
+          <div class="card-number">#28</div>
+          <div class="card-time">8:33 – 8:49</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Formatting</div>
+          <div class="card-title">Link Your Own Notes</div>
+          <div class="card-desc">Link to other notes using the double greater-than (>>) shortcut — create a web of interconnected notes.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Collaborate" loading="lazy">
+          <div class="card-number">#29</div>
+          <div class="card-time">8:49 – 9:03</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Formatting</div>
+          <div class="card-title">Collaborate and Tag People</div>
+          <div class="card-desc">Share notes and mention collaborators with @mentions for live edits and real-time co-authoring.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Hidden Feature" loading="lazy">
+          <div class="card-number">#30</div>
+          <div class="card-time">9:03 – 9:14</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Formatting</div>
+          <div class="card-title">Most Hidden Feature Ever</div>
+          <div class="card-desc">Toggle the note date between "Date Edited" and "Date Created" by tapping/clicking the date — a secret power-user trick.</div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-gif-wrap">
+          <img src="https://drive.google.com/thumbnail?id=1tiOkKHRR3cX2OM0vsiTNhrSY49Ai832b&sz=w640" alt="Even Better" loading="lazy">
+          <div class="card-number">#31</div>
+          <div class="card-time">9:14 – 9:28</div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Formatting</div>
+          <div class="card-title">This App Makes Notes Even Better</div>
+          <div class="card-desc">Third-party app recommendations to add slash commands, advanced formatting, and Power User-style workflows.</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Apple Notes Tips — 31 Short Clips &nbsp;|&nbsp; Hosted on <a href="https://drive.google.com/drive/folders/1bV73pay1Uiw3dIoRwz-nBC9xCacKQcem">Google Drive</a></p>
+</footer>
+
+<script>
+// Smooth scroll for nav
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    const id = btn.getAttribute('href').slice(1);
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Highlight active section on scroll
+const sections = document.querySelectorAll('section[id]');
+const navBtns = document.querySelectorAll('.cat-btn');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  navBtns.forEach(b => {
+    b.classList.toggle('active', b.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
